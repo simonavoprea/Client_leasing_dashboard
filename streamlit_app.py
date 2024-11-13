@@ -40,7 +40,8 @@ if uploaded_file:
 
 
 
-    
+    col1, col2, col3 = st.columns(3)
+
     # Pie chart for 'PROFESIA' (Profession) if it exists
     if 'PROFESIA' in data.columns:
         profession_counts = data['PROFESIA'].value_counts().nlargest(7)
