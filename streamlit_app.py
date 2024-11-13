@@ -15,7 +15,7 @@ uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
 # Display title and header
 st.write("Streamlit methods exemplification: :red[***st.title & st.header***]")
-st.title("Client Leasing Data Analysis")
+st.title("Client Leasing Data Analysis", divider = "rainbow")
 st.header("Overview of Client Financial Data")
 
 st.write("Streamlit method exemplification: :red[***st.code***]")
@@ -47,7 +47,7 @@ if uploaded_file:
     st.line_chart(data[['VENIT_ANUAL']])
 
 
-
+    st.write("Streamlit method exemplification: :red[***st.columns***]")
     col1, col2, col3 = st.columns(3)
     with col1:
         # Pie chart for 'PROFESIA' (Profession) if it exists
@@ -110,7 +110,7 @@ if uploaded_file:
         
     # Display progress bar during data loading or processing
     import time
-    st.write("Streamlit method exemplification: :red[***st.preogress***]")
+    st.write("Streamlit method exemplification: :red[***st.progress***]")
     progress_bar = st.progress(0)
     for i in range(100):
         time.sleep(0.01)  # simulate processing time
@@ -198,11 +198,13 @@ if uploaded_file:
         client_id = st.selectbox("Choose Client ID", st.session_state['data']['ID_CLIENT'].unique())
 
         # Show current information for the selected client
+        st.write("Streamlit method exemplification: :red[***st.session_state***]")
         client_data = st.session_state['data'][st.session_state['data']['ID_CLIENT'] == client_id].iloc[0]
         st.write("Current Information for Selected Client:")
         st.write(client_data)
 
         # Form for submitting client data updates
+        st.write("Streamlit method exemplification: :red[***st.form***]")
         with st.form("client_update"):
             # Input fields to update client details
             new_income = st.number_input(
