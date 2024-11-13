@@ -14,9 +14,11 @@ uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
 
 # Display title and header
+st.write("Streamlit methods exemplification: :red[***st.title & st.header***]")
 st.title("Client Leasing Data Analysis")
 st.header("Overview of Client Financial Data")
 
+st.write("Streamlit method exemplification: :red[***st.code***]")
 st.code("import pandas as pd ", language = "python")
 st.code("import streamlit as st ", language = "python")
 st.code("st.set_page_config(page_title=\"Client Leasing Dashboard\", layout=\"wide\")", language = "python")
@@ -27,16 +29,21 @@ st.header("Overview of Client Financial Data")
 """, language="python")
 if uploaded_file:
     # Show the entire dataset
+    st.write("Streamlit method exemplification: :red[***st.write***]")
     st.write("Here is the client dataset:")
     data = pd.read_csv(uploaded_file)
+    st.write("Streamlit method exemplification: :red[***st.subheader***]")
     st.subheader("Show the entire dataset")
+    st.write("Streamlit method exemplification: :red[***st.dataframe***]")
     st.dataframe(data)
 
     # Show specific columns in a static table
     st.subheader("Show specific columns in a static table")
+    st.write("Streamlit method exemplification: :red[***st.table***]")
     st.table(data[['ID_CLIENT', 'NUME_CLIENT', 'PROFESIA', 'VENIT_ANUAL']].head())
 
     # Line chart of annual income for visualization
+    st.write("Streamlit method exemplification: :red[***st.line_chart***]")
     st.line_chart(data[['VENIT_ANUAL']])
 
 
@@ -47,6 +54,7 @@ if uploaded_file:
         if 'PROFESIA' in data.columns:
             profession_counts = data['PROFESIA'].value_counts().nlargest(7)
             fig_profession = px.pie(values=profession_counts.values, names=profession_counts.index, title="Distribution of Professions")
+            st.write("Streamlit method exemplification: :red[***st.plotly_chart***]")
             st.plotly_chart(fig_profession)
     with col2: 
         # Pie chart for 'SEX' (Gender) if it exists
@@ -63,18 +71,23 @@ if uploaded_file:
 
 
     # Sidebar for user input
+    st.write("Streamlit method exemplification: :red[***st.sidebar.header***]")
     st.sidebar.header("Filter Data")
 
     # Text input for searching client by name
+    st.write("Streamlit method exemplification: :red[***st.sidebar.text_input***]")
     client_name = st.sidebar.text_input("Search by client name")
 
     # Select a profession to filter by
+    st.write("Streamlit method exemplification: :red[***st.sidebar.selectbox***]")
     profession = st.sidebar.selectbox("Select Profession", data['PROFESIA'].unique())
 
     # Number input for minimum annual income
+    st.write("Streamlit method exemplification: :red[***st.sidebar.number_input***]")
     min_income = st.sidebar.number_input("Minimum Annual Income", min_value=0, step=500)
 
     # Slider to select an age range
+    st.write("Streamlit method exemplification: :red[***st.sidebar.slider***]")
     age_range = st.sidebar.slider("Select Age Range", int(data['VARSTA'].min()), int(data['VARSTA'].max()), (25, 45))
 
     # Filter data based on user input
@@ -89,12 +102,15 @@ if uploaded_file:
 
     # Display a success message if data is filtered successfully
     if not filtered_data.empty:
+        st.write("Streamlit method exemplification: :red[***st.succes***]")
         st.success("Data filtered successfully!")
     else:
+        st.write("Streamlit method exemplification: :red[***st.warning***]")
         st.warning("No data matches the specified filters.")
         
     # Display progress bar during data loading or processing
     import time
+    st.write("Streamlit method exemplification: :red[***st.preogress***]")
     progress_bar = st.progress(0)
     for i in range(100):
         time.sleep(0.01)  # simulate processing time
@@ -102,10 +118,12 @@ if uploaded_file:
 
 
     # Create expandable section
+    st.write("Streamlit method exemplification: :red[***st.expander***]")
     with st.expander("Show Descriptions"):
         st.write(data['DESCRIERE'].head())
 
     # Create two columns for side-by-side comparison
+    st.write("Streamlit method exemplification: :red[***st.columns***]")
     col1, col2 = st.columns(2)
     col1.metric("Average Income", data['VENIT_ANUAL'].mean())
     col2.metric("Average Deposit", data['SUMA_DEPOZIT'].mean())
@@ -114,6 +132,7 @@ if uploaded_file:
 
     # Display header
     st.header("Summary Statistics of Clients")
+    st.write("Streamlit method exemplification: :red[***st.markdown***]")
     st.markdown("<h1 style='color:green;'>Summary Statistics of Clients</h1>", unsafe_allow_html=True)
     # Display summary statistics
     st.write("Below are the summary statistics for the numerical columns in the dataset:")
@@ -153,6 +172,7 @@ if uploaded_file:
     st.markdown("<h2 style='color:red;'>Detailed Analysis of Specific Columns</h1>", unsafe_allow_html=True)
     if 'SEX' in data.columns:
         st.write("Gender Distribution")
+        st.write("Streamlit method exemplification: :red[***st.bar_chart***]")
         st.bar_chart(data['SEX'].value_counts())
 
     if 'PROFESIA' in data.columns:
@@ -212,6 +232,7 @@ if uploaded_file:
                 st.write(st.session_state['data'][st.session_state['data']['ID_CLIENT'] == client_id])
 
         # Save button outside the form
+        st.write("Streamlit method exemplification: :red[***st.button***]")
         if st.button("Save Changes to CSV"):
             st.session_state['data'].to_csv('updated_clienti_leasing.csv', index=False)
             st.success("Data saved to updated_clienti_leasing.csv")
@@ -229,9 +250,11 @@ if uploaded_file:
         st.warning("Please upload a CSV file to proceed.")
 
     # Displaying an image (if you have a related file path or URL)
+    st.write("Streamlit method exemplification: :red[***st.image***]")
     st.image("https://st.depositphotos.com/2309453/4248/i/450/depositphotos_42483789-stock-photo-smiling-young-man-shaking-hands.jpg", caption="Sample Image")
 
     # Adding audio or video files, if available
     #st.audio("/path/to/sample_audio.mp3")
+    st.write("Streamlit method exemplification: :red[***st.video***]")
     st.video("https://youtu.be/G6WtlnWjZC8")
     
