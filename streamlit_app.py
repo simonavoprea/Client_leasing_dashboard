@@ -1,7 +1,10 @@
 import pandas as pd
 import streamlit as st
-#import plotly.express as px
-
+from math import pi
+from bokeh.plotting import figure
+from bokeh.transform import cumsum
+from bokeh.palettes import Category10
+from bokeh.models import ColumnDataSource
 
 # Set page configuration
 st.set_page_config(page_title="Client Leasing Dashboard", layout="wide")
@@ -37,24 +40,46 @@ if uploaded_file:
     # Line chart of annual income for visualization
     st.line_chart(data[['VENIT_ANUAL']])
 
-    '''
+    
+    # Function to create a Bokeh pie chart
+    def create_bokeh_pie_chart(counts, title):
+        counts_df = pd.DataFrame(counts).reset_index().rename(columns={'index': 'category', counts.name: 'value'})
+        counts_df['angle'] = counts_df['value'] / counts_df['value'].sum() * 2 * pi
+        counts_df['color'] = Category10[len(counts_df)]
+    
+        p = figure(title=title, height=350, toolbar_location=None,
+                   tools="hover", tooltips="@category: @value", x_range=(-1, 1), y_range=(-1, 1))
+        
+        p.wedge(x=0, y=0, radius=0.4, 
+                start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'),
+                line_color="white", fill_color='color', legend_field='category', source=counts_df)
+    
+        p.axis.axis_label = None
+        p.axis.visible = False
+        p.grid.visible = False
+    
+        return p
+    
+    # Display pie charts in Streamlit
+    st.title("Pie Chart Visualizations")
+    
     # Pie chart for 'PROFESIA' (Profession) if it exists
     if 'PROFESIA' in data.columns:
         profession_counts = data['PROFESIA'].value_counts()
-        fig_profession = px.pie(values=profession_counts.values, names=profession_counts.index, title="Distribution of Professions")
-        st.plotly_chart(fig_profession)
-
+        fig_profession = create_bokeh_pie_chart(profession_counts, "Distribution of Professions")
+        st.bokeh_chart(fig_profession)
+    
     # Pie chart for 'SEX' (Gender) if it exists
     if 'SEX' in data.columns:
         gender_counts = data['SEX'].value_counts()
-        fig_gender = px.pie(values=gender_counts.values, names=gender_counts.index, title="Gender Distribution")
-        st.plotly_chart(fig_gender)
-
-    # Pie chart for another categorical column example, 'STARE_CIVILA', if it exists
+        fig_gender = create_bokeh_pie_chart(gender_counts, "Gender Distribution")
+        st.bokeh_chart(fig_gender)
+    
+    # Pie chart for 'STARE_CIVILA' (Marital Status) if it exists
     if 'STARE_CIVILA' in data.columns:
-        active_member_counts = data['STARE_CIVILA'].value_counts()
-        fig_active_member = px.pie(values=active_member_counts.values, names=active_member_counts.index, title="Marital Status Distribution")
-        st.plotly_chart(fig_active_member)'''
+        marital_counts = data['STARE_CIVILA'].value_counts()
+        fig_marital_status = create_bokeh_pie_chart(marital_counts, "Marital Status Distribution")
+        st.bokeh_chart(fig_marital_status)
         
 
     # Sidebar for user input
