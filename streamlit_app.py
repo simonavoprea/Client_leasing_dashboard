@@ -9,6 +9,7 @@ st.set_page_config(page_title="Client Leasing Dashboard", layout="wide")
 
 # Load the uploaded file to inspect its contents
 # File Upload
+st.write("This is a teaching material by: :red[***Simona Oprea https://simonaoprea.ase.ro/***]")
 st.write("Streamlit method exemplification: :red[***st.file_uploader***]")
 uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
@@ -259,4 +260,6 @@ if uploaded_file:
     #st.audio("/path/to/sample_audio.mp3")
     st.write("Streamlit method exemplification: :red[***st.video***]")
     st.video("https://youtu.be/G6WtlnWjZC8")
+
+st.write("This is a teaching material by: :red[***Simona Oprea https://simonaoprea.ase.ro/***]")
     
