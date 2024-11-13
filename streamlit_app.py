@@ -53,7 +53,7 @@ if uploaded_file:
     
     # Pie chart for 'PROFESIA' (Profession) if it exists
     if 'PROFESIA' in data.columns:
-        profession_counts = data['PROFESIA'].value_counts()..nlargest(10)
+        profession_counts = data['PROFESIA'].value_counts().nlargest(10)
         fig_profession = create_seaborn_pie_chart(profession_counts, "Distribution of Professions")
         st.pyplot(fig_profession)
     
