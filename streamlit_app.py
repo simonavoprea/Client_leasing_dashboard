@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-import plotly.express as px
+#import plotly.express as px
 
 
 # Set page configuration
@@ -37,7 +37,7 @@ if uploaded_file:
     # Line chart of annual income for visualization
     st.line_chart(data[['VENIT_ANUAL']])
 
-    
+    '''
     # Pie chart for 'PROFESIA' (Profession) if it exists
     if 'PROFESIA' in data.columns:
         profession_counts = data['PROFESIA'].value_counts()
@@ -54,7 +54,7 @@ if uploaded_file:
     if 'STARE_CIVILA' in data.columns:
         active_member_counts = data['STARE_CIVILA'].value_counts()
         fig_active_member = px.pie(values=active_member_counts.values, names=active_member_counts.index, title="Marital Status Distribution")
-        st.plotly_chart(fig_active_member)
+        st.plotly_chart(fig_active_member)'''
         
 
     # Sidebar for user input
