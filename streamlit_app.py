@@ -55,7 +55,7 @@ if uploaded_file:
 
     # Pie chart for another categorical column example, 'STARE_CIVILA', if it exists
     if 'STARE_CIVILA' in data.columns:
-        active_member_counts = data['STARE_CIVILA'].value_counts()
+        active_member_counts = data['STARE_CIVILA'].value_counts().nlargest(5)
         fig_active_member = px.pie(values=active_member_counts.values, names=active_member_counts.index, title="Marital Status Distribution")
         st.plotly_chart(fig_active_member)
 
