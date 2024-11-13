@@ -43,7 +43,7 @@ if uploaded_file:
     def create_seaborn_pie_chart(counts, title):
         colors = sns.color_palette("pastel", len(counts))  # Choose a Seaborn color palette
         #fig, ax = plt.subplots()
-        fig, ax = plt.subplots(figsize=(5, 5))
+        fig, ax = plt.subplots(figsize=(3, 3))
         ax.pie(counts.values, labels=counts.index, autopct='%1.1f%%', startangle=140, colors=colors)
         ax.set_title(title)
         return fig
