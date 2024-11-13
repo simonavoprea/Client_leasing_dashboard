@@ -9,6 +9,7 @@ st.set_page_config(page_title="Client Leasing Dashboard", layout="wide")
 
 # Load the uploaded file to inspect its contents
 # File Upload
+st.write("Streamlit method exemplification: ***st.file_uploader***")
 uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 
 
