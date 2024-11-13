@@ -16,8 +16,7 @@ uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
 # Display title and header
 st.write("Streamlit methods exemplification: :red[***st.title & st.header***]")
 st.title("Client Leasing Data Analysis")
-st.divider = ("rainbow")
-st.header("Overview of Client Financial Data")
+st.header("Overview of Client Financial Data", divider = "rainbow")
 
 st.write("Streamlit method exemplification: :red[***st.code***]")
 st.code("import pandas as pd ", language = "python")
