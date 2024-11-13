@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 
 # Set page configuration
 st.set_page_config(page_title="Client Leasing Dashboard", layout="wide")
@@ -39,35 +40,24 @@ if uploaded_file:
 
 
 
-     # Function to create a Seaborn-styled pie chart using Matplotlib
-    def create_seaborn_pie_chart(counts, title):
-        colors = sns.color_palette("pastel", len(counts))  # Choose a Seaborn color palette
-        #fig, ax = plt.subplots()
-        fig, ax = plt.subplots(figsize=(2, 2))
-        ax.pie(counts.values, labels=counts.index, autopct='%1.1f%%', startangle=140, colors=colors)
-        ax.set_title(title)
-        return fig
-    
-    # Display pie charts in Streamlit
-    st.title("Pie Chart Visualizations with Seaborn Aesthetic")
     
     # Pie chart for 'PROFESIA' (Profession) if it exists
     if 'PROFESIA' in data.columns:
-        profession_counts = data['PROFESIA'].value_counts().nlargest(5)
-        fig_profession = create_seaborn_pie_chart(profession_counts, "Distribution of Professions")
-        st.pyplot(fig_profession)
-    
+        profession_counts = data['PROFESIA'].value_counts()
+        fig_profession = px.pie(values=profession_counts.values, names=profession_counts.index, title="Distribution of Professions")
+        st.plotly_chart(fig_profession)
+
     # Pie chart for 'SEX' (Gender) if it exists
     if 'SEX' in data.columns:
         gender_counts = data['SEX'].value_counts()
-        fig_gender = create_seaborn_pie_chart(gender_counts, "Gender Distribution")
-        st.pyplot(fig_gender)
-    
-    # Pie chart for 'STARE_CIVILA' (Marital Status) if it exists
+        fig_gender = px.pie(values=gender_counts.values, names=gender_counts.index, title="Gender Distribution")
+        st.plotly_chart(fig_gender)
+
+    # Pie chart for another categorical column example, 'STARE_CIVILA', if it exists
     if 'STARE_CIVILA' in data.columns:
-        marital_counts = data['STARE_CIVILA'].value_counts()
-        fig_marital_status = create_seaborn_pie_chart(marital_counts, "Marital Status Distribution")
-        st.pyplot(fig_marital_status)
+        active_member_counts = data['STARE_CIVILA'].value_counts()
+        fig_active_member = px.pie(values=active_member_counts.values, names=active_member_counts.index, title="Marital Status Distribution")
+        st.plotly_chart(fig_active_member)
 
 
     # Sidebar for user input
