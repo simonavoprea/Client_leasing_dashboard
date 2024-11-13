@@ -43,7 +43,7 @@ if uploaded_file:
     
     # Pie chart for 'PROFESIA' (Profession) if it exists
     if 'PROFESIA' in data.columns:
-        profession_counts = data['PROFESIA'].value_counts()
+        profession_counts = data['PROFESIA'].value_counts().nlargest(7)
         fig_profession = px.pie(values=profession_counts.values, names=profession_counts.index, title="Distribution of Professions")
         st.plotly_chart(fig_profession)
 
@@ -55,7 +55,7 @@ if uploaded_file:
 
     # Pie chart for another categorical column example, 'STARE_CIVILA', if it exists
     if 'STARE_CIVILA' in data.columns:
-        active_member_counts = data['STARE_CIVILA'].value_counts().nlargest(5)
+        active_member_counts = data['STARE_CIVILA'].value_counts()
         fig_active_member = px.pie(values=active_member_counts.values, names=active_member_counts.index, title="Marital Status Distribution")
         st.plotly_chart(fig_active_member)
 
